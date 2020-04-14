@@ -39,4 +39,18 @@ router.post("/", (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  db("cars")
+  .update(req.params.id, req.body)
+  .then(data => res.status(201).json(data))
+  .catch(err => res.status(404).json({ message: 'Couldnt update', errorMessage: err.message }))
+});
+
+router.delete('/:id', (req, res) => {
+  db('cars')
+    .delete(req.params.id)
+    .then(action => res.status(200).json({ message: 'Car deleted' }))
+    .catch(err => res.status(404).json({ message: 'Cant delete car', errorMessage: err.message}))
+});
+
 module.exports = router;
